@@ -88,13 +88,13 @@ DELETE http://localhost:8080/api/security/clearance/1 HTTP/1.1
 
 _Nothing to do... the `SecurityClearance` model exists and appears to be good to go._
 
-### [ ] Controller (#.# hours)
+### [ ] Controller (4 hours)
 
 * `SecurityClearanceController`
 
 _Refer to the `AgentController` class and use that as an example for the methods to add and implementation details to follow._
 
-### [ ] Domain (#.# hours)
+### [ ] Domain (4 hours)
 
 * `SecurityClearanceService`
 * `SecurityClearanceServiceTest`
@@ -125,7 +125,7 @@ _Another idea... get row count from the agency_agent table for the security clea
 select count(*) from agency_agent where security_clearance_id = 1;
 ```
 
-### [ ] Data (#.# hours)
+### [ ] Data (3 hours)
 
 * `SecurityClearanceMapper` (this class exists)
 * `SecurityClearanceJdbcTemplateRepository` (this class exists but is incomplete)
