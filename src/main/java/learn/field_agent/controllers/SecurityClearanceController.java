@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/security/clearance")
-
 public class SecurityClearanceController {
     private final SecurityClearanceService service;
 

@@ -1,21 +1,27 @@
 package learn.field_agent.domain;
 
+import learn.field_agent.data.AgencyAgentRepository;
 import learn.field_agent.data.AgentRepository;
 import learn.field_agent.data.SecurityClearanceJdbcTemplateRepository;
 import learn.field_agent.data.SecurityClearanceRepository;
+import learn.field_agent.models.AgencyAgent;
 import learn.field_agent.models.SecurityClearance;
 import learn.field_agent.models.SecurityClearance;
 import learn.field_agent.models.SecurityClearance;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
 public class SecurityClearanceService {
     private final SecurityClearanceRepository repository;
+    private final AgencyAgentRepository agencyAgentRepository;
 
-    public SecurityClearanceService(SecurityClearanceRepository repository) {
+    public SecurityClearanceService(SecurityClearanceRepository repository, AgencyAgentRepository agencyAgentRepository) {
         this.repository = repository;
+        this.agencyAgentRepository= agencyAgentRepository;
     }
 
     public List<SecurityClearance> findAll() {
@@ -62,10 +68,12 @@ public class SecurityClearanceService {
     }
 
     public boolean deleteById(int securityClearanceId) {
+        //List<AgencyAgent> allAgencyAgent = agencyAgentRepository.findAll();
         return repository.deleteById(securityClearanceId);
     }
 
     private Result<SecurityClearance> validate(SecurityClearance securityClearance) {
+        List<SecurityClearance> allClearances = repository.findAll();
         Result<SecurityClearance> result = new Result<>();
         if (securityClearance == null) {
             result.addMessage("securityClearance cannot be null", ResultType.INVALID);
@@ -74,6 +82,11 @@ public class SecurityClearanceService {
 
         if (Validations.isNullOrBlank(securityClearance.getName())) {
             result.addMessage("securityClearanceName is required", ResultType.INVALID);
+        }
+        for (SecurityClearance clearance:allClearances){
+            if (clearance.getName().equalsIgnoreCase(securityClearance.getName())){
+                result.addMessage("securityClearanceName cannot be duplicated", ResultType.INVALID);
+            }
         }
 
         return result;

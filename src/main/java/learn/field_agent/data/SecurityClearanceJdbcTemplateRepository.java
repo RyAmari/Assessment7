@@ -36,7 +36,7 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
 
     @Override
     public List<SecurityClearance> findAll() {
-        final String sql = "select security_clearance_id, security_clearance_name"
+        final String sql = "select security_clearance_id, name security_clearance_name "
                 + "from security_clearance limit 1000;";
         return jdbcTemplate.query(sql, new SecurityClearanceMapper());
     }
@@ -44,7 +44,7 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
     @Override
     public SecurityClearance add(SecurityClearance securityClearance) {
 
-        final String sql = "insert into security_clearance (security_clearance_name) "
+        final String sql = "insert into security_clearance ( name ) "
                 + " values (?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -65,7 +65,7 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
     public boolean update(SecurityClearance securityClearance) {
 
         final String sql = "update security_clearance set "
-                + "security_clearance_name = ? "
+                + "name = ? "
                 + "where security_clearance_id = ?;";
 
         return jdbcTemplate.update(sql,
@@ -77,6 +77,6 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
     @Transactional
     public boolean deleteById(int securityClearanceId) {
         jdbcTemplate.update("delete from agency_agent where security_clearance_id = ?;", securityClearanceId);
-        return jdbcTemplate.update("delete from agent where security_clearance_id = ?;", securityClearanceId) > 0;
+        return jdbcTemplate.update("delete from security_clearance where security_clearance_id = ?;", securityClearanceId) > 0;
     }
 }

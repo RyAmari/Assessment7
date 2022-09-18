@@ -6,10 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class SecurityClearanceJdbcTemplateRepositoryTest {
+
+    final static int NEXT_ID = 3;
 
     @Autowired
     SecurityClearanceJdbcTemplateRepository repository;
@@ -35,5 +39,41 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
 
         actual = repository.findById(3);
         assertEquals(null, actual);
+    }
+
+    @Test
+    void shouldFindAll() {
+        List<SecurityClearance> securityClearanceList = repository.findAll();
+        assertNotNull(securityClearanceList);
+
+    }
+
+    @Test
+    void shouldAdd() {
+        SecurityClearance securityClearance = makeSecurityClearance();
+        SecurityClearance actual = repository.add(securityClearance);
+        assertNotNull(actual);
+        assertEquals(NEXT_ID,actual.getSecurityClearanceId());
+    }
+
+    @Test
+    void shouldUpdate() {
+        SecurityClearance securityClearance = makeSecurityClearance();
+        securityClearance.setSecurityClearanceId(2);
+        assertTrue(repository.update(securityClearance));
+        securityClearance.setSecurityClearanceId(10);
+        assertFalse(repository.update(securityClearance));
+    }
+
+    @Test
+    void shouldDeleteById() {
+        assertTrue(repository.deleteById(2));
+        assertFalse(repository.deleteById(2));
+    }
+
+    private SecurityClearance makeSecurityClearance(){
+        SecurityClearance securityClearance = new SecurityClearance();
+        securityClearance.setName("Test Name");
+        return securityClearance;
     }
 }
