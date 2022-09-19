@@ -13,11 +13,12 @@ public class AliasMapper implements RowMapper<Alias> {
         Alias alias = new Alias();
         alias.setAliasId(resultSet.getInt("alias_id"));
         alias.setName(resultSet.getString("name"));
-       // alias.setPersona(resultSet.getString("persona"));
-        alias.setAgentId(resultSet.getInt("agent_id"));
         if (resultSet.getString("persona") != null) {
             alias.setPersona(resultSet.getString("persona"));
         }
+       // alias.setPersona(resultSet.getString("persona"));
+        alias.setAgentId(resultSet.getInt("agent_id"));
+
         return alias;
     }
 }
