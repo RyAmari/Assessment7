@@ -1,5 +1,6 @@
 package learn.field_agent.data;
 
+import learn.field_agent.domain.Result;
 import learn.field_agent.models.Agent;
 import learn.field_agent.models.SecurityClearance;
 import org.springframework.transaction.annotation.Transactional;
