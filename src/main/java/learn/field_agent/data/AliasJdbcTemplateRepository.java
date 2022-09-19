@@ -25,7 +25,7 @@ public class AliasJdbcTemplateRepository implements AliasRepository {
 
     @Override
     public List<Alias> findAll() {
-        final String sql = "select agent_id, first_name, middle_name, last_name, dob, height_in_inches "
+        final String sql = "select alias_id, name, persona, agent_id "
                 + "from alias limit 1000;";
         return jdbcTemplate.query(sql, new AliasMapper());
     }
@@ -34,7 +34,7 @@ public class AliasJdbcTemplateRepository implements AliasRepository {
     @Transactional
     public Alias findById(int aliasId) {
 
-        final String sql = "select alias_id, name, persona, agent_id"
+        final String sql = "select alias_id, name, persona, agent_id "
                 + "from alias "
                 + "where alias_id = ?;";
 
@@ -65,7 +65,7 @@ public class AliasJdbcTemplateRepository implements AliasRepository {
             return null;
         }
 
-        alias.setAgentId(keyHolder.getKey()
+        alias.setAliasId(keyHolder.getKey()
                 .intValue());
         return alias;
     }
@@ -76,7 +76,7 @@ public class AliasJdbcTemplateRepository implements AliasRepository {
         final String sql = "update alias set "
                 + "name = ?, "
                 + "persona = ?, "
-                + "agent_id = ?, "
+                + "agent_id = ? "
                 + "where alias_id = ?;";
 
         return jdbcTemplate.update(sql,

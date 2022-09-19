@@ -6,6 +6,10 @@ public class Alias {
     private int aliasId;
     private String name;
 
+    private int agentId;
+
+    private String persona;
+
     public int getAliasId() {
         return aliasId;
     }
@@ -23,11 +27,11 @@ public class Alias {
     }
 
     public String getPersona() {
-        return name;
+        return persona;
     }
 
-    public void setPersona(String name) {
-        this.name = name;
+    public void setPersona(String persona) {
+        this.persona = persona;
     }
 
     public int getAgentId() {
@@ -37,15 +41,14 @@ public class Alias {
     public void setAgentId(int agentId) {
         this.agentId = agentId;
     }
-
-    private int agentId;
-
     public Alias() {
     }
 
-    public Alias(int aliasId, String name) {
+    public Alias(int aliasId, String name, String persona, int agentId) {
         this.aliasId = aliasId;
         this.name = name;
+        this.persona = persona;
+        this.agentId=agentId;
     }
 
     @Override
