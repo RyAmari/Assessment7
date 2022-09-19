@@ -1,17 +1,11 @@
 package learn.field_agent.domain;
 
 import learn.field_agent.data.AgencyAgentRepository;
-import learn.field_agent.data.AgentRepository;
-import learn.field_agent.data.SecurityClearanceJdbcTemplateRepository;
 import learn.field_agent.data.SecurityClearanceRepository;
 import learn.field_agent.models.AgencyAgent;
 import learn.field_agent.models.SecurityClearance;
-import learn.field_agent.models.SecurityClearance;
-import learn.field_agent.models.SecurityClearance;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,6 +23,13 @@ public class SecurityClearanceService {
     }
 
     public SecurityClearance findById(int securityClearanceId) {
+        Result<SecurityClearance> result = new Result<>();
+        List<SecurityClearance> all = repository.findAll();
+        for (SecurityClearance clearance: all){
+            if(clearance.getSecurityClearanceId()!=securityClearanceId){
+               result.addMessage("securityClearanceId could not be found", ResultType.INVALID);
+            }
+        }
         return repository.findById(securityClearanceId);
     }
 
@@ -67,13 +68,16 @@ public class SecurityClearanceService {
         return result;
     }
 
-    public Result<SecurityClearance> deleteById(int securityClearanceId) {
+    public boolean deleteById(int securityClearanceId) {
         List<AgencyAgent> allAgencyAgent = agencyAgentRepository.findAll();
         Result<SecurityClearance> result = new Result<>();
         for (AgencyAgent agencyAgent: allAgencyAgent){
             if (agencyAgent.getSecurityClearance().getSecurityClearanceId()==securityClearanceId){
                 result.addMessage("A 'securityClearance' cannot be deleted while in use", ResultType.INVALID);
-                return result;
+                return false;
+            }
+            if(repository.deleteById(securityClearanceId)){
+                result.addMessage("Success", ResultType.SUCCESS);
             }
         }
         return repository.deleteById(securityClearanceId);
