@@ -34,7 +34,7 @@ Content-Type: application/json
 
 {
   "agentId": 1,
-  "name": "Test"
+  "name": "Changed Alias"
 }
 
 ### [ ] PUT an alias

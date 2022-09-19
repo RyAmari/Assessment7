@@ -13,7 +13,7 @@ public class Agent {
     private LocalDate dob;
     private int heightInInches;
 
-    private String alias;
+    private Alias alias;
     private List<AgentAgency> agencies = new ArrayList<>();
 
     public int getAgentId() {
@@ -72,11 +72,11 @@ public class Agent {
         this.agencies = agencies;
     }
 
-    public String getAlias() {
+    public Alias getAlias() {
         return alias;
     }
 
-    public void setAlias(String alias) {
+    public void setAlias(Alias alias) {
         this.alias = alias;
     }
 }

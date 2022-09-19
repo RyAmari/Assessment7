@@ -2,7 +2,9 @@ package learn.field_agent.data;
 
 import learn.field_agent.data.mappers.AgentAgencyMapper;
 import learn.field_agent.data.mappers.AgentMapper;
+import learn.field_agent.data.mappers.AliasMapper;
 import learn.field_agent.models.Agent;
+import learn.field_agent.models.Alias;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -115,5 +117,4 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
         agent.setAgencies(agentAgencies);
     }
 
-    private void addAliases
 }
