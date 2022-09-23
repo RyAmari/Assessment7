@@ -13,5 +13,7 @@ public interface AgencyAgentRepository {
 
     List<AgencyAgent> findAll();
 
-    List<AgencyAgent> findSecurityClearanceId(int securityClearanceId);
+    //List<AgencyAgent> findSecurityClearanceId(int securityClearanceId);
+
+    boolean countContainsSecurityId(int securityClearanceId);
 }

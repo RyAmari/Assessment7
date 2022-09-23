@@ -135,7 +135,7 @@ begin
 		('Phylys','Y','Howitt','1979-03-28',68);
         
 	insert into agency_agent 
-		(agency_id, agent_id, identifier, security_clearance_id, activation_date)
+		(agency_id, agent_id, identifier, security_clearance_id, name security_clearance_name, activation_date)
     select
         agency.agency_id,                              -- agency_id
         agent.agent_id,                                -- agent_id

@@ -69,9 +69,8 @@ public class SecurityClearanceService {
     }
 
     public Result<Void> deleteById(int securityClearanceId) {
-        List<AgencyAgent> allSecurityClearanceById = agencyAgentRepository.findSecurityClearanceId(securityClearanceId);
         Result<Void> result = new Result<>();
-        if (allSecurityClearanceById.size()>0){
+        if (agencyAgentRepository.countContainsSecurityId(securityClearanceId)){
                 result.addMessage("A 'securityClearance' cannot be deleted while in use", ResultType.INVALID);
                 return result;
             }

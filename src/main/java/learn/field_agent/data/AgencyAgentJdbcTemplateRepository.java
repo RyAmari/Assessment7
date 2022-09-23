@@ -19,7 +19,7 @@ public class AgencyAgentJdbcTemplateRepository implements AgencyAgentRepository 
     @Override
     public boolean add(AgencyAgent agencyAgent) {
 
-        final String sql = "insert into agency_agent (agency_id, agent_id, identifier, security_clearance_id, "
+        final String sql = "insert into agency_agent (agency_id, agent_id, identifier, security_clearance_id "
                 + "activation_date, is_active) values "
                 + "(?,?,?,?,?,?);";
 
@@ -62,7 +62,7 @@ public class AgencyAgentJdbcTemplateRepository implements AgencyAgentRepository 
     }
 
 public List<AgencyAgent> findAll(){
-        final String sql = "select agency_id, agent_id, identifier, security_clearance_id, activation_date, is_active from agency_agent limit 1000;";
+        final String sql = "select agency_id, agent_id, identifier, security_clearance_id, name security_clearance_name, activation_date, is_active from agency_agent limit 1000;";
         return jdbcTemplate.query(sql, new AgencyAgentMapper());
 }
 
@@ -72,17 +72,16 @@ public List<AgencyAgent> findAll(){
 //        return jdbcTemplate.query(sql, new AgencyAgentMapper(),securityClearanceId).stream().findFirst().orElse(null);
 //}
 
-public List<AgencyAgent> findSecurityClearanceId(int securityClearanceId){
-        final String sql = " select agency_id, agent_id, identifier, security_clearance_id, activation_date, is_active "
-            +"from agency_agent "
-            + "where security_clearance_id = ? ; " ;
-        return jdbcTemplate.query(sql, new AgencyAgentMapper(), securityClearanceId);
-}
-
-//public boolean countContainsSecurityId(int securityClearanceId){
-//        boolean contains = false;
-//        final String sql = " select count(security_clearance_id) from agency_agent where security_clearance_id=? ";
-//
-//        return
+//public List<AgencyAgent> findSecurityClearanceId(int securityClearanceId){
+//        final String sql = " select agency_id, agent_id, identifier, security_clearance_id, name security_clearance_name, activation_date, is_active "
+//            +"from agency_agent "
+//            + "where security_clearance_id = ? ; " ;
+//        return jdbcTemplate.query(sql, new AgencyAgentMapper(), securityClearanceId);
 //}
+
+public boolean countContainsSecurityId(int securityClearanceId){
+        final String sql = " select count(security_clearance_id) from agency_agent where security_clearance_id=? ";
+
+        return jdbcTemplate.queryForObject(sql, Integer.class,securityClearanceId).intValue()>0;
+}
 }
