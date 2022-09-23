@@ -37,7 +37,7 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
         actual = repository.findById(2);
         assertEquals(topSecret, actual);
 
-        actual = repository.findById(3);
+        actual = repository.findById(99);
         assertEquals(null, actual);
     }
 

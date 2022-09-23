@@ -68,19 +68,17 @@ public class SecurityClearanceService {
         return result;
     }
 
-    public boolean deleteById(int securityClearanceId) {
-        List<AgencyAgent> allAgencyAgent = agencyAgentRepository.findAll();
-        Result<SecurityClearance> result = new Result<>();
-        for (AgencyAgent agencyAgent: allAgencyAgent){
-            if (agencyAgent.getSecurityClearance().getSecurityClearanceId()==securityClearanceId){
+    public Result<Void> deleteById(int securityClearanceId) {
+        List<AgencyAgent> allSecurityClearanceById = agencyAgentRepository.findSecurityClearanceId(securityClearanceId);
+        Result<Void> result = new Result<>();
+        if (allSecurityClearanceById.size()>0){
                 result.addMessage("A 'securityClearance' cannot be deleted while in use", ResultType.INVALID);
-                return false;
+                return result;
             }
-            if(repository.deleteById(securityClearanceId)){
-                result.addMessage("Success", ResultType.SUCCESS);
-            }
+        if(!repository.deleteById(securityClearanceId)){
+            result.addMessage("Could not find securityClearanceId", ResultType.NOT_FOUND);
         }
-        return repository.deleteById(securityClearanceId);
+        return result;
     }
 
     private Result<SecurityClearance> validate(SecurityClearance securityClearance) {

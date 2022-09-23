@@ -37,7 +37,7 @@ class AliasJdbcTemplateRepositoryTest {
         actual = repository.findById(2);
         assertEquals(fakeName, actual);
 
-        actual = repository.findById(3);
+        actual = repository.findById(99);
         assertEquals(null, actual);
     }
 

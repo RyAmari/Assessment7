@@ -1,6 +1,7 @@
 package learn.field_agent.domain;
 
 import learn.field_agent.data.SecurityClearanceRepository;
+import learn.field_agent.models.AgencyAgent;
 import learn.field_agent.models.SecurityClearance;
 import learn.field_agent.models.SecurityClearance;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,9 @@ class SecurityClearanceServiceTest {
         securityClearance.setName(null);
         result = service.add(securityClearance);
         assertEquals(ResultType.INVALID, result.getType());
+    }
+    void shouldNotDeleteWhenInUse(){
+        SecurityClearance securityClearance = makeSecurityClearance();
     }
 
     SecurityClearance makeSecurityClearance(){
