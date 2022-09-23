@@ -73,8 +73,16 @@ public List<AgencyAgent> findAll(){
 //}
 
 public List<AgencyAgent> findSecurityClearanceId(int securityClearanceId){
-        final String sql = "select security_clearance_id from agency_agent" +
-                "where security_clearance_id = ?";
-        return jdbcTemplate.query(sql, new AgencyAgentMapper());
+        final String sql = " select agency_id, agent_id, identifier, security_clearance_id, activation_date, is_active "
+            +"from agency_agent "
+            + "where security_clearance_id = ? ; " ;
+        return jdbcTemplate.query(sql, new AgencyAgentMapper(), securityClearanceId);
 }
+
+//public boolean countContainsSecurityId(int securityClearanceId){
+//        boolean contains = false;
+//        final String sql = " select count(security_clearance_id) from agency_agent where security_clearance_id=? ";
+//
+//        return
+//}
 }
